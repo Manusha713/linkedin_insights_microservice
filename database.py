@@ -10,9 +10,6 @@ DB_NAME = os.getenv("DB_NAME")
 client: Optional[AsyncIOMotorClient] = None
 database = None
 
-def get_mongo_client() -> Optional[AsyncIOMotorClient]:
-    return client
-
 async def connect_to_mongo():
     global client, database
     if not DATABASE_URL or not DB_NAME:

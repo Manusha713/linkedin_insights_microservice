@@ -9,21 +9,10 @@ class PostBase(BaseModel):
     likes_count: int
     comments_count: int
     timestamp: datetime
-    
-class EmployeeBase(BaseModel):
-    """Placeholder for employee data, matching the structure for the API requirement."""
-    name: str
-    title: str
-    profile_url: HttpUrl
 
 class Post(PostBase):
     id: int
     page_id: str
-    class Config:
-        from_attributes = True
-
-class Employee(EmployeeBase):
-    id: int
     class Config:
         from_attributes = True
 
@@ -42,11 +31,9 @@ class Page(PageBase):
     scrape_timestamp: datetime
     
     recent_posts: List[Post] = []
-    employees: List[Employee] = [] 
     
     class Config:
         from_attributes = True
         
 class PageCreate(PageBase):
     posts_data: List[PostBase] = []
-    employee_data: List[EmployeeBase] = []

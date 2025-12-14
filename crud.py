@@ -11,7 +11,7 @@ POST_COLLECTION = "posts"
 
 async def create_page(db: AsyncIOMotorDatabase, page_data: schemas.PageCreate):
     
-    page_doc: Dict[str, Any] = page_data.model_dump(exclude={"posts_data", "employee_data"})
+    page_doc: Dict[str, Any] = page_data.model_dump(exclude={"posts_data"})
     page_doc["scrape_timestamp"] = datetime.utcnow()
     
     existing_page = await db[PAGE_COLLECTION].find_one({"page_id": page_doc["page_id"]})

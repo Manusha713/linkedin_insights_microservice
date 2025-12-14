@@ -12,12 +12,6 @@ from . import schemas
 class LinkedInScraper:
     """A minimal scraper for unauthenticated public access."""
     
-    def _parse_follower_count(self, text: str) -> int:
-        """Helper to convert follower text (e.g., '20K') to integer."""
-        text = text.upper().replace(',', '').replace('.', '')
-        if 'K' in text: return int(text.replace('K', '00')) 
-        return int(text) if text.isdigit() else 10000 
-    
     def scrape_page(self, page_id: str) -> Optional[schemas.PageCreate]:
         
         company_url = f"https://www.linkedin.com/company/{page_id}/"
@@ -62,8 +56,7 @@ class LinkedInScraper:
         
             return schemas.PageCreate(
                 **page_data,
-                posts_data=post_list,
-                employee_data=[] 
+                posts_data=post_list
             )
         except Exception as e:
             print(f"Error creating schema from scraped data: {e}")

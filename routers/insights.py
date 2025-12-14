@@ -72,13 +72,3 @@ async def get_posts_for_page(
         
     posts = await crud.get_page_posts(db, page_id=page_id, skip=skip, limit=limit)
     return [schemas.Post(**p) for p in posts]
-
-@router.get("/{page_id}/employees", response_model=List[schemas.Employee])
-async def get_employees_for_page(
-    page_id: str,
-    db: AsyncIOMotorDatabase = Depends(get_db_async)
-):
-    if not await crud.get_page_by_page_id(db, page_id):
-        raise HTTPException(status_code=404, detail="Page not found.")
-         
-    return []
